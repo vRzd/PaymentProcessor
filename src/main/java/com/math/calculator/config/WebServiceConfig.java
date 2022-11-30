@@ -1,4 +1,4 @@
-package com.simple.backend.math.config;
+package com.math.calculator.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -18,24 +18,31 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Value("${soap.namespace.uri}")
-    String soapNamespaceUri;
+    private String soapNamespaceUri;
 
     @Value("${xsd.schemas.location}")
-    String xsdNamespaceUri;
+    private String xsdNamespaceUri;
+
+
+    @Value("${wsdl11.port.name}")
+    private String wsdl11PortName;
+
+    @Value("${wsdl11.location.uri}")
+    private String wsdl11LocationUri;
 
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
-        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+        final MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
-    @Bean(name = "operations")
+    @Bean(name = "mathCalculation")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema operationSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("SimpleBackend");
-        wsdl11Definition.setLocationUri("/ws");
+        final DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName(wsdl11PortName);
+        wsdl11Definition.setLocationUri(wsdl11LocationUri);
         wsdl11Definition.setTargetNamespace(soapNamespaceUri);
         wsdl11Definition.setSchema(operationSchema);
         return wsdl11Definition;

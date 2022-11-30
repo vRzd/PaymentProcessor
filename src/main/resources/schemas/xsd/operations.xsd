@@ -1,23 +1,22 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://mathApp/math-simple-backend-web-service"
-           targetNamespace="http://mathApp/math-simple-backend-web-service"
+           xmlns:tns="http://mathApp/math-calculation-web-service"
+           targetNamespace="http://mathApp/math-calculation-web-service"
            elementFormDefault="qualified">
 
-    <xs:element name="getOperationRequest">
+    <xs:element name="calculationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" name="value1" type="xs:long"/>
-                <xs:element minOccurs="0" name="value2" type="xs:long"/>
-                <xs:element minOccurs="0" name="operation" nillable="true" type="tns:operation"/>
+                <xs:element minOccurs="0" name="firstValue" type="xs:int"/>
+                <xs:element minOccurs="0" name="secondValue" type="xs:int"/>
+                <xs:element minOccurs="0" name="operation" nillable="false" type="tns:operation"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-
-    <xs:element name="operationResponse">
+    <xs:element name="calculationResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" name="response" type="xs:long"/>
+                <xs:element minOccurs="0" name="response" type="xs:float"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
