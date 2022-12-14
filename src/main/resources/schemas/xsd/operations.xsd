@@ -3,17 +3,17 @@
            targetNamespace="http://mathApp/math-calculation-web-service"
            elementFormDefault="qualified">
 
-    <xs:element name="calculationRequest">
+    <xs:element name="calculativeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" name="firstValue" type="xs:int"/>
-                <xs:element minOccurs="0" name="secondValue" type="xs:int"/>
-                <xs:element minOccurs="0" name="operation" nillable="false" type="tns:operation"/>
+                <xs:element minOccurs="0" name="firstValue" type="xs:float"/>
+                <xs:element minOccurs="0" name="secondValue" type="xs:float"/>
+                <xs:element minOccurs="0" name="operationType" nillable="true" type="tns:operationType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="calculationResponse">
+    <xs:element name="calculativeResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" name="response" type="xs:float"/>
@@ -21,14 +21,14 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:simpleType name="operation">
+    <xs:simpleType name="operationType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="plus"/>
-            <xs:enumeration value="subtract"/>
-            <xs:enumeration value="multiply"/>
-            <xs:enumeration value="divide"/>
-            <xs:enumeration value="stall"/>
-            <xs:enumeration value="other"/>
+            <xs:enumeration value="PLUS"/>
+            <xs:enumeration value="SUBTRACT"/>
+            <xs:enumeration value="MULTIPLY"/>
+            <xs:enumeration value="DIVIDE"/>
+            <xs:enumeration value="STALL"/>
+            <xs:enumeration value="OTHER"/>
         </xs:restriction>
     </xs:simpleType>
 

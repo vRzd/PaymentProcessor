@@ -1,7 +1,7 @@
-package com.math.calculator.service;
+package com.app.calculation.service;
 
-import mathapp.math_calculation_web_service.CalculationResponse;
-import mathapp.math_calculation_web_service.Operation;
+import mathapp.math_calculation_web_service.CalculativeResponse;
+import mathapp.math_calculation_web_service.OperationType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,13 @@ public class CalculationService {
     private int minMathOperationTime;
     @Value("${max.math.operation.time}")
     private int maxMathOperationTime;
-    @Value("${min.stall.operation.time}")
-    private int minStallTime;
-    @Value("${max.stall.operation.time}")
-    private int maxStallTime;
-    @Value("${accurate.error.operation.time}")
-    private int timeForError;
+    @Value("${min.other.operation.time}")
+    private int minOtherOperationTime;
+    @Value("${max.other.operation.time}")
+    private int maxOtherOperationTime;
 
 
-    public CalculationResponse calculateMathOperation(float firstValue, float secondValue, Operation operation) throws InterruptedException {
+    public CalculativeResponse calculateMathOperation(float firstValue, float secondValue, OperationType operation) throws InterruptedException {
         float mathResult;
         switch (operation) {
             case PLUS -> {
@@ -38,19 +36,15 @@ public class CalculationService {
                 mathResult = firstValue * secondValue;
             }
             case DIVIDE -> {
-                sleepFromTo(minMathOperationTime, maxMathOperationTime);
-                mathResult = firstValue / secondValue;
-            }
-            case STALL -> {
-                sleepFromTo(minStallTime, maxStallTime);
+                sleepFromTo(minMathOperationTime, maxOtherOperationTime);
                 mathResult = firstValue / secondValue;
             }
             default -> {
-                Thread.sleep(timeForError);
+                sleepFromTo(minOtherOperationTime, maxMathOperationTime);
                 throw new UnsupportedOperationException("Invalid Math Operation");
             }
         }
-        CalculationResponse operationResponse = new CalculationResponse();
+        CalculativeResponse operationResponse = new CalculativeResponse();
         operationResponse.setResponse(mathResult);
         return operationResponse;
     }

@@ -1,4 +1,4 @@
-package com.math.calculator.config;
+package com.app.calculation.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

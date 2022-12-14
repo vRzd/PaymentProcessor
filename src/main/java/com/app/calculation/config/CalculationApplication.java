@@ -1,9 +1,9 @@
-package com.math.calculator.config;
+package com.app.calculation.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.math.calculator")
+@SpringBootApplication(scanBasePackages = "com.app.calculation")
 public class CalculationApplication {
 
     public static void main(String[] args) {
