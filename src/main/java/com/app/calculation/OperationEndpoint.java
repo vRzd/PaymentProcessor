@@ -2,31 +2,40 @@ package com.app.calculation;
 
 
 import com.app.calculation.service.CalculationService;
-import mathapp.math_calculation_web_service.CalculativeRequest;
-import mathapp.math_calculation_web_service.CalculativeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ws.server.endpoint.annotation.*;
-
-import java.util.Optional;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import payment.payment_processor_web_service.OperationType;
+import payment.payment_processor_web_service.PaymentRequest;
+import payment.payment_processor_web_service.PaymentResponse;
+import payment.payment_processor_web_service.PaymentResult;
 
 @Endpoint
 public class OperationEndpoint {
 
-    private static final String NAMESPACE_URI = "http://mathApp/math-calculation-web-service";
+    private static final String NAMESPACE_URI = "http://payment/payment-processor-web-service";
 
     @Autowired
     private CalculationService calculationService;
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculativeRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "paymentRequest")
     @ResponsePayload
-    public CalculativeResponse doCalculation(@RequestPayload CalculativeRequest calculationRequest) throws InterruptedException {
+    public PaymentResponse doCalculation(@RequestPayload PaymentRequest paymentRequest) throws InterruptedException {
 
-        final Float firstValue = Optional.ofNullable(calculationRequest.getFirstValue())
-                .orElseThrow(UnsupportedOperationException::new);
-        final Float secondValue = Optional.ofNullable(calculationRequest.getSecondValue())
-                .orElseThrow(UnsupportedOperationException::new);
+        final OperationType operationType = paymentRequest.getOperationType().getValue();
 
-        return calculationService.calculateMathOperation(firstValue, secondValue, calculationRequest.getOperationType().getValue());
+        final String cardNumber = paymentRequest.getCardNumber();
+        final String expirationDate = paymentRequest.getExpirationDate();
+        final String cardHolderName = paymentRequest.getCardHolderName().getValue();
+
+        final Float processingTime = paymentRequest.getProcessingTime().getValue();
+
+        final PaymentResult paymentResult = calculationService.paymentProcessing(operationType, cardNumber, cardHolderName, expirationDate, processingTime);
+        PaymentResponse paymentResponse = new PaymentResponse();
+        paymentResponse.setPaymentResult(paymentResult);
+        return paymentResponse;
 
     }
 }

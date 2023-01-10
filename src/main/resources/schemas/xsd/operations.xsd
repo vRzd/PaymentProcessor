@@ -1,34 +1,41 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://mathApp/math-calculation-web-service"
-           targetNamespace="http://mathApp/math-calculation-web-service"
+           xmlns:tns="http://payment/payment-processor-web-service"
+           targetNamespace="http://payment/payment-processor-web-service"
            elementFormDefault="qualified">
 
-    <xs:element name="calculativeRequest">
+    <xs:element name="paymentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" name="firstValue" type="xs:float"/>
-                <xs:element minOccurs="0" name="secondValue" type="xs:float"/>
+                <xs:element minOccurs="0" name="cardNumber" type="xs:string"/>
+                <xs:element minOccurs="0" name="expirationDate" type="xs:string"/>
+                <xs:element minOccurs="0" name="cardHolderName" nillable="true" type="xs:string"/>
+
                 <xs:element minOccurs="0" name="operationType" nillable="true" type="tns:operationType"/>
+                <xs:element minOccurs="0" name="processingTime" nillable="true" type="xs:float"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="calculativeResponse">
+    <xs:element name="paymentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" name="response" type="xs:float"/>
+                <xs:element minOccurs="0" name="paymentResult" type="tns:paymentResult"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
 
     <xs:simpleType name="operationType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="PLUS"/>
-            <xs:enumeration value="SUBTRACT"/>
-            <xs:enumeration value="MULTIPLY"/>
-            <xs:enumeration value="DIVIDE"/>
-            <xs:enumeration value="STALL"/>
-            <xs:enumeration value="OTHER"/>
+            <xs:enumeration value="RETURN_PAYMENT"/>
+            <xs:enumeration value="PAYMENT"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="paymentResult">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESSFUL"/>
+            <xs:enumeration value="FAILED"/>
         </xs:restriction>
     </xs:simpleType>
 
