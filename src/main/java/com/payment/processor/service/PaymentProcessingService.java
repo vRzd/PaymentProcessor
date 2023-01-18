@@ -1,4 +1,4 @@
-package com.app.calculation.service;
+package com.payment.processor.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class CalculationService {
+public class PaymentProcessingService {
 
     @Value("${min.math.operation.time}")
     private int minMathOperationTime;

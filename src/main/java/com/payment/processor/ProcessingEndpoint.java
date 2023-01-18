@@ -1,7 +1,7 @@
-package com.app.calculation;
+package com.payment.processor;
 
 
-import com.app.calculation.service.CalculationService;
+import com.payment.processor.service.PaymentProcessingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -13,12 +13,12 @@ import payment.payment_processor_web_service.PaymentResponse;
 import payment.payment_processor_web_service.PaymentResult;
 
 @Endpoint
-public class OperationEndpoint {
+public class ProcessingEndpoint {
 
     private static final String NAMESPACE_URI = "http://payment/payment-processor-web-service";
 
     @Autowired
-    private CalculationService calculationService;
+    private PaymentProcessingService calculationService;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "paymentRequest")
     @ResponsePayload

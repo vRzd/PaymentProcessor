@@ -1,4 +1,4 @@
-package com.app.calculation.config;
+package com.payment.processor.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

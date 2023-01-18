@@ -1,9 +1,9 @@
-package com.app.calculation.config;
+package com.payment.processor.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.app.calculation")
+@SpringBootApplication(scanBasePackages = "com.payment.processor")
 public class PaymentProcessorApplication {
 
     public static void main(String[] args) {
